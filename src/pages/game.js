@@ -12,7 +12,7 @@ function Game({ name, sexe, room, socketId, socket }) {
 
     useEffect(() => {
 
-        fetch(`http://localhost:3001/room-count`, {
+        fetch(`${process.env.REACT_APP_API_URL}/room-count`, {
             method: 'POST',
             body: JSON.stringify({ room }),
             headers: { 'Content-Type': 'application/json' },
