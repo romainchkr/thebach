@@ -1,38 +1,107 @@
-.App {
-  text-align: center;
+/* Home */
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+label {
+  margin: 10px 0;
+  font-size: 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+input[type="text"],
+input[type="file"] {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+input[type="file"]{
+  width: 80%;
+}
+
+.radio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.radio input[type="radio"] {
+  margin-right: 10px;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #3e8e41
+}
+
+button[type="submit"]:active {
+  background-color: #693e8e ;
+}
+
+
+p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.card {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.card p {
+  margin: 0;
+  font-size: 16px;
   color: white;
+  background-color: rgba(0,0,0,0.5);
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+.line {
+  display: flex;
+  flex-direction: row;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.twoChoicesActive
+{
+  background-color: rgba(76,175,80,0.5);
+}
+
+.cardActive
+{
+  border: solid 2px rgba(76,175,80);
+  box-shadow: 2px 1px 4px rgba(76,175,80);
 }
