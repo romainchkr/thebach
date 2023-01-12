@@ -1,20 +1,28 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 // Composant
-const FourCards = ({question, choices}) => {
+const FourCards = ({question, choices, socket, gameId}) => {
     const [answer, setAnswer] = useState('');
+    const [messageStatus, setMessageStatus] = useState("");
+
+    useEffect(() => {
+        setAnswer("");
+        setMessageStatus("");
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Envoyer un POST à l'adresse '/ready' avec le nom, l'image et l'URL
-        /*const response = await fetch('http://localhost:3001/ready', {
-            method: 'POST',
-            body: JSON.stringify({ socketId, name, image, url }),
-            headers: { 'Content-Type': 'application/json' },
+        // with acknowledgement
+        socket.emit("game_response", { gameId, answer }, (response) => {
+            console.log(response)
+            if(response.status) {
+                setMessageStatus('Réponse enregistrée');
+
+            } else {
+                setMessageStatus("Erreur");
+            }
         });
-        const data = await response.json();
-        console.log(data);*/
     }
 
     return (
@@ -45,6 +53,7 @@ const FourCards = ({question, choices}) => {
             </div>
 
             <button type="submit">Valider</button>
+            <p>{messageStatus}</p>
         </form>
     );
 };

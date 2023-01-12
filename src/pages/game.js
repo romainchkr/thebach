@@ -56,28 +56,28 @@ function Game({ name, sexe, room, socketId, socket }) {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <Sentence question={game.game.question} />
+                <Sentence question={game.game.question} socket={socket} gameId={game.game.id}/>
             </div>
         );
     } else if (game.game.type === "two-choice"){
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <TwoChoices question={game.game.question} choice1={game.game.choices[0].text} choice2={game.game.choices[1].text}/>
+                <TwoChoices question={game.game.question} choice1={game.game.choices[0].text} choice2={game.game.choices[1].text} socket={socket} gameId={game.game.id}/>
             </div>
         );
     } else if (game.game.type === "four-choice"){
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <FourCards question={game.game.question} choices={game.game.choices}/>
+                <FourCards question={game.game.question} choices={game.game.choices} socket={socket} gameId={game.game.id}/>
             </div>
         );
     } else if (game.game.type === "eliminate-profils"){
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <EliminateProfils data={game.game}/>
+                <EliminateProfils data={game.game} socket={socket} gameId={game.id}/>
             </div>
         );
     }

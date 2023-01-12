@@ -16,11 +16,28 @@ const Home = ({ name, setName, sexe, setSexe, room, setRoom, socketId, socket })
                 console.log(response)
                 if(response.status) {
                     setMessageStatus('')
+                    if(image) {
+
+                        const formData = new FormData();
+                        formData.append('file', image)
+                        formData.append('socketId', socket.id)
+                        formData.append('room', room)
+                        console.log(socket.id)
+
+                        fetch(`${process.env.REACT_APP_API_URL}/upload-image`, {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(res => {
+                                console.log("wsh")
+                                console.log(res)
+                            });
+                    }
+
                     navigate('/game', { replace: true });
                 } else {
                     setMessageStatus("Game room is full")
                 }
-
             });
         }
     }

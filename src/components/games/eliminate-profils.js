@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 // Composant
-const EliminateProfils = ({data}) => {
+const EliminateProfils = ({data, socket}) => {
     const [answer, setAnswer] = useState("");
 
     const handleSubmit = async (e) => {
@@ -24,7 +24,7 @@ const EliminateProfils = ({data}) => {
 
             <div className="wrapCards">
                 {Object.keys(data.contenders).map((key, i) => (
-                    <div className={`face-card ${answer === key ? "face-card-active" : ""}`} style={{ backgroundImage: `url(${data.contenders[key].image})` }}
+                    <div className={`face-card ${answer === key ? "face-card-active" : ""}`} style={{ backgroundImage: `url(${process.env.REACT_APP_API_URL}/${data.contenders[key].image})` }}
                          onClick={(e)=>setAnswer(key)}>
                         <p>{data.contenders[key].name}</p>
                     </div>
