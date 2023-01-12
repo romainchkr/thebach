@@ -4,8 +4,14 @@ import FourCards from "../components/games/four-cards";
 import TwoChoices from "../components/games/two-choices";
 import LinearDeterminate from "../components/linearDeterminate";
 import EliminateProfils from "../components/games/eliminate-profils";
+import Eliminate from "../components/games/eliminate";
+import TwoChats from "../components/games/two-chats";
+import WinnerChat from "../components/games/winner-chat";
+import Loser from "../components/games/loser";
+import {useNavigate} from "react-router-dom";
 
 function Game({ name, sexe, room, socketId, socket }) {
+    const navigate = useNavigate();
     const [game, setGame] = useState(null);
     const [userCount, setUserCount] = useState(0);
     const [maxUser, setMaxUser] = useState(0);
@@ -77,7 +83,43 @@ function Game({ name, sexe, room, socketId, socket }) {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <EliminateProfils data={game.game} socket={socket} gameId={game.id}/>
+                <EliminateProfils data={game.game} socket={socket}/>
+            </div>
+        );
+    } else if (game.game.type === "eliminate"){
+        return (
+            <div>
+                <LinearDeterminate duration={game.duration}/>
+                <Eliminate data={game.game} socket={socket} nbToEliminate={game.game.nbToEliminate}/>
+            </div>
+        );
+    } else if(game.game.type === "first_game") {
+        return (
+            <div>
+                <LinearDeterminate duration={game.duration}/>
+                <p>Waiting for contenders to play their first game</p>
+            </div>
+        );
+    } else if(game.game.type === "two-chats") {
+        return (
+            <div>
+                <LinearDeterminate duration={game.duration}/>
+                <TwoChats data={game.game.data}/>
+            </div>
+        );
+    } else if(game.game.type === "winner-chat") {
+        return (
+            <div>
+                <LinearDeterminate duration={game.duration}/>
+                <WinnerChat data={game.game.data}/>
+            </div>
+        );
+    } else if(game.game.type === "loser") {
+        return (
+            <div>
+                <p>{game.game.message}</p>
+                <button onClick={()=> navigate('/', { replace: true })}>Go back to lobby</button>
+                {/*<Loser />*/}
             </div>
         );
     }

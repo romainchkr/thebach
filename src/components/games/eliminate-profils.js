@@ -2,30 +2,36 @@ import React, {useState} from "react";
 
 // Composant
 const EliminateProfils = ({data, socket}) => {
-    const [answer, setAnswer] = useState("");
+    const [answer, setAnswer] = useState([]);
+    const [messageStatus, setMessageStatus] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(data)
 
-        // Envoyer un POST à l'adresse '/ready' avec le nom, l'image et l'URL
-        /*const response = await fetch('http://localhost:3001/ready', {
-            method: 'POST',
-            body: JSON.stringify({ socketId, name, image, url }),
-            headers: { 'Content-Type': 'application/json' },
+        // with acknowledgement
+        socket.emit("game_response", { 'response' : answer }, (response) => {
+            console.log(response)
+            if(response.status) {
+                setMessageStatus('Réponse enregistrée');
+
+            } else {
+                setMessageStatus("Erreur");
+            }
         });
-        const data = await response.json();
-        console.log(data);*/
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <p>Eliminer 3 profils</p>
+            <p>Eliminer 1 profil</p>
 
             <div className="wrapCards">
                 {Object.keys(data.contenders).map((key, i) => (
-                    <div className={`face-card ${answer === key ? "face-card-active" : ""}`} style={{ backgroundImage: `url(${process.env.REACT_APP_API_URL}/${data.contenders[key].image})` }}
-                         onClick={(e)=>setAnswer(key)}>
+                    <div key={key} className={`face-card ${answer[0] === key ? "face-card-active" : ""}`} style={{ backgroundImage: `url(${process.env.REACT_APP_API_URL}/${data.contenders[key].image})` }}
+                         onClick={(e)=>{
+                             console.log("click")
+                             setAnswer([key])
+                             console.log(answer)
+                         }}>
                         <p>{data.contenders[key].name}</p>
                     </div>
                 ))}
@@ -33,6 +39,7 @@ const EliminateProfils = ({data, socket}) => {
 
 
             <button type="submit">Valider</button>
+            <p>{messageStatus}</p>
         </form>
     );
 };
