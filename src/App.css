@@ -1,123 +1,256 @@
-/* Home */
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-top: 20px;
+/*HOME*/
+* {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-label {
-  margin: 10px 0;
-  font-size: 16px;
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
 }
 
-input[type="text"],
-input[type="file"] {
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.home form {
+    width: 90%;
+    max-width: 500px;
 }
 
-input[type="file"]{
-  width: 80%;
+.home h1 {
+    color: #EC77AB;
 }
 
-.radio {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px;
+.home label {
+    color: #CF76BE;
 }
 
-.radio input[type="radio"] {
-  margin-right: 10px;
+.home input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.home .sexe {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.home .radio {
+    display: flex;
+    flex-direction: row;
+}
+
+.home .radio label {
+    color: #7873F5;
+}
+
+.home p {
+    color: red;
+}
+
+.buttonHolder {
+    text-align: center;
 }
 
 button[type="submit"] {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: #EC77AB;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    margin-top: 1rem;
 }
 
 button[type="submit"]:hover {
-  background-color: #3e8e41
+  background-color: #CF76BE
 }
 
 button[type="submit"]:active {
-  background-color: #693e8e ;
+  background-color: #7873F5 ;
 }
 
-
-p {
-  margin-bottom: 20px;
-  font-size: 16px;
+.title {
+    color: #EC77AB;
+    font-size: 1.3em;
+    text-align: center;
 }
 
-.card {
-  width: 200px;
-  height: 200px;
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  border-radius: 10px;
-  overflow: hidden;
-  text-align: center;
-  position: relative;
-  cursor: pointer;
+/*SENTENCE*/
+
+.sentence {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
 }
 
-.card p, .face-card p {
-  margin: 0;
-  font-size: 16px;
-  color: white;
-  background-color: rgba(0,0,0,0.5);
-  padding: 10px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
+.sentence form {
+    width: 90%;
+    max-width: 500px;
 }
 
-.line {
-  display: flex;
-  flex-direction: row;
+.sentence input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
-.twoChoicesActive
-{
-  background-color: rgba(76,175,80,0.5);
+.sentence button {
+    background-color: #EC77AB;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    margin-top: 1rem;
 }
 
-.cardActive
-{
-  border: solid 2px rgba(76,175,80);
-  box-shadow: 2px 1px 4px rgba(76,175,80);
+.sentence button[type="submit"]:hover {
+    background-color: #CF76BE
 }
 
-.face-card-active
-{
-  border: solid 2px rgba(175,76,80);
-  box-shadow: 2px 1px 4px rgba(175,76,80);
+.sentence button[type="submit"]:active {
+    background-color: #7873F5 ;
 }
 
-.face-card
+/*TWO CHOICES*/
+
+.twoChoices {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.twoChoices .choices {
+    display: flex;
+    justify-content: space-around;
+}
+
+.twoChoices .choices > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+    cursor: pointer;
+    color: #7873F5;
+    text-align: center;
+    width: 40%;
+    border: solid 1px #CF76BE;
+}
+
+.twoChoices .twoChoicesActive {
+    box-shadow: 0 0 20px #7873F5;
+}
+
+.twoChoices form {
+    width: 90%;
+    max-width: 500px;
+}
+
+.twoChoices .messageStatus {
+    color: green;
+}
+
+.twoChoices {
+    text-align: center;
+}
+
+/*Four cards*/
+
+.FourCards form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FourCards .line {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.FourCards .card {
+    width: 40%;
+    max-width: 250px;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.FourCards .card p {
+    font-size: 1.5em;
+    margin-bottom: 0;
+    font-weight: bold;
+    color: white;
+}
+
+.FourCards .cardActive {
+    box-shadow: 0 0 20px #7873F5;
+}
+
+/*Eliminate*/
+
+.Eliminate form {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.Eliminate .wrapCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.Eliminate .answer {
+    width: 200px;
+    height: 150px;
+    background-color: #CF76BE;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Eliminate .answer-active {
+    background-color: #B275D1;
+    box-shadow: 0 0 20px #7873F5;
+}
+
+/*Eliminate Profils*/
+
+.EliminateProfils {
+    width: 100%;
+}
+
+.EliminateProfils .wrapCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.EliminateProfils .face-card
 {
   width: 150px;
   height: 150px;
-  margin: 10px 25px;
+  margin: 10px 10px;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -132,40 +265,92 @@ p {
   cursor: pointer;
 }
 
-.wrapCards
-{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+.EliminateProfils .face-card p {
+    font-size: 1rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem;
+    margin: 0;
 }
 
-
-.answer-active
-{
-  border: solid 2px rgba(175,76,80);
-  box-shadow: 2px 1px 4px rgba(175,76,80);
+.EliminateProfils .face-card-active {
+    box-shadow: 0 0 10px red;
 }
 
-.answer
-{
-  padding: 10px;
-  width: 200px;
-  border: solid 1px black;
-  margin: 10px 25px;
-  overflow: hidden;
-  text-align: center;
-  position: relative;
-  cursor: pointer;
+/*CHAT*/
+
+/* client/src/pages/chat/styles.module.css */
+
+.chatContainer {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 20px;
 }
 
-.two-chats
-{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+/* Room and users component */
+.roomAndUsersColumn {
+    border-right: 1px solid #dfdfdf;
+}
+.roomTitle {
+    margin-bottom: 60px;
+    text-transform: uppercase;
+    font-size: 2rem;
+    color: #fff;
+}
+.usersTitle {
+    font-size: 1.2rem;
+    color: #fff;
+}
+.usersList {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 60px;
+    color: rgb(153, 217, 234);
+}
+.usersList li {
+    margin-bottom: 12px;
 }
 
-.two-chats form
-{
-  border: solid 1px black;
+/* Messages */
+.messagesColumn {
+    height: 70vh;
+    overflow: auto;
+    padding: 10px 10px 10px 40px;
+}
+.message {
+    background: rgb(0, 24, 111);
+    border-radius: 6px;
+    margin-bottom: 24px;
+    max-width: 600px;
+    padding: 12px;
+}
+.msgMeta {
+    color: rgb(153, 217, 234);
+    font-size: 0.75rem;
+}
+.msgText {
+    color: #fff;
+}
+
+/* Message input and button */
+.sendMessageContainer {
+    padding: 16px 20px 20px 16px;
+}
+.messageInput {
+    padding: 14px;
+    margin-right: 16px;
+    width: 80%;
+    border-radius: 6px;
+    border: 1px solid rgb(153, 217, 234);
+    font-size: 0.9rem;
+}
+
+/*TWO CHATS*/
+
+.two-chats {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }

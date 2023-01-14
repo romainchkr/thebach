@@ -26,21 +26,27 @@ const TwoChoices = ({question, choice1, choice2, socket, gameId}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div style={{textAlign: 'center'}}>
-                <p >{question}</p>
-                <p style={{fontSize: '1.1em', cursor: 'pointer'}}
-                onClick={() => setAnswer(choice1)}
-                className={answer === choice1 ? "twoChoicesActive" : ""}>{choice1}</p>
-                <p>Ou</p>
-                <p style={{fontSize: '1.1em', cursor: 'pointer'}}
-                   onClick={() => setAnswer(choice2)}
-                   className={answer === choice2 ? "twoChoicesActive" : ""}>{choice2}</p>
-            </div>
+        <div className="twoChoices">
+            <form onSubmit={handleSubmit}>
+                <div style={{textAlign: 'center'}}>
+                    <p className="title">{question}</p>
+                    <div className="choices">
+                        <div onClick={() => setAnswer(choice1)}
+                           className={answer === choice1 ? "twoChoicesActive" : ""}>{choice1}</div>
+                        <p>Ou</p>
+                        <div onClick={() => setAnswer(choice2)}
+                           className={answer === choice2 ? "twoChoicesActive" : ""}>{choice2}</div>
+                    </div>
 
-            <button type="submit">Valider</button>
-            <p>{messageStatus}</p>
-        </form>
+                </div>
+
+                <div className="buttonHolder">
+                    <button type="submit">Valider</button>
+                    <p>{messageStatus}</p>
+                </div>
+            </form>
+        </div>
+
     );
 };
 

@@ -26,35 +26,39 @@ const FourCards = ({question, choices, socket, gameId}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <p>{question}</p>
-            <div className="line" >
-                <div className={`card ${answer === choices[0].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[0].img})` }}
-                onClick={(e)=>setAnswer(choices[0].text)}>
-                    <p>{choices[0].text}</p>
+        <div className="FourCards">
+            <form onSubmit={handleSubmit}>
+                <p className="title">{question}</p>
+                <div className="line" >
+                    <div className={`card ${answer === choices[0].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[0].img})` }}
+                         onClick={(e)=>setAnswer(choices[0].text)}>
+                        <p>{choices[0].text}</p>
+                    </div>
+
+                    <div className={`card ${answer === choices[1].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[1].img})` }}
+                         onClick={(e)=>setAnswer(choices[1].text)}>
+                        <p>{choices[1].text}</p>
+                    </div>
                 </div>
 
-                <div className={`card ${answer === choices[1].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[1].img})` }}
-                     onClick={(e)=>setAnswer(choices[1].text)}>
-                    <p>{choices[1].text}</p>
-                </div>
-            </div>
+                <div className="line">
+                    <div className={`card ${answer === choices[2].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[2].img})` }}
+                         onClick={(e)=>setAnswer(choices[2].text)}>
+                        <p>{choices[2].text}</p>
+                    </div>
 
-            <div className="line">
-                <div className={`card ${answer === choices[2].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[2].img})` }}
-                     onClick={(e)=>setAnswer(choices[2].text)}>
-                    <p>{choices[2].text}</p>
+                    <div className={`card ${answer === choices[3].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[3].img})` }}
+                         onClick={(e)=>setAnswer(choices[3].text)}>
+                        <p>{choices[3].text}</p>
+                    </div>
                 </div>
 
-                <div className={`card ${answer === choices[3].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[3].img})` }}
-                     onClick={(e)=>setAnswer(choices[3].text)}>
-                    <p>{choices[3].text}</p>
+                <div className="buttonHolder">
+                    <button type="submit">Valider</button>
+                    <p>{messageStatus}</p>
                 </div>
-            </div>
-
-            <button type="submit">Valider</button>
-            <p>{messageStatus}</p>
-        </form>
+            </form>
+        </div>
     );
 };
 

@@ -21,26 +21,32 @@ const EliminateProfils = ({data, socket}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <p>Eliminer 1 profil</p>
+        <div className="EliminateProfils">
+            <form onSubmit={handleSubmit}>
+                <p className="title">Eliminer 1 profil</p>
 
-            <div className="wrapCards">
-                {Object.keys(data.contenders).map((key, i) => (
-                    <div key={key} className={`face-card ${answer[0] === key ? "face-card-active" : ""}`} style={{ backgroundImage: `url(${process.env.REACT_APP_API_URL}/${data.contenders[key].image})` }}
-                         onClick={(e)=>{
-                             console.log("click")
-                             setAnswer([key])
-                             console.log(answer)
-                         }}>
-                        <p>{data.contenders[key].name}</p>
-                    </div>
-                ))}
-            </div>
+                <div className="wrapCards">
+                    {Object.keys(data.contenders).map((key, i) => (
+                        <div>
+                            <div key={key} className={`face-card ${answer[0] === key ? "face-card-active" : ""}`} style={{ backgroundImage: `url(${process.env.REACT_APP_API_URL}/${data.contenders[key].image})` }}
+                                 onClick={(e)=>{
+                                     console.log("click")
+                                     setAnswer([key])
+                                     console.log(answer)
+                                 }}>
+                            </div>
+                            <p style={{textAlign:'center'}}>{data.contenders[key].name}</p>
+                        </div>
+                    ))}
+                </div>
 
 
-            <button type="submit">Valider</button>
-            <p>{messageStatus}</p>
-        </form>
+                <div className="buttonHolder">
+                    <button type="submit">Valider</button>
+                    <p>{messageStatus}</p>
+                </div>
+            </form>
+        </div>
     );
 };
 

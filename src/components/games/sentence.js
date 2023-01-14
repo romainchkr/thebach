@@ -28,15 +28,18 @@ const Sentence = ({question, socket, gameId}) => {
     return (
         <div className="sentence">
             <form onSubmit={handleSubmit}>
-                <p>{question}</p>
+                <p className="title">{question}</p>
                 <input
                     type="text"
                     id="answer"
                     value={answer}
                     onChange={(e) => setAnswer(e.target.value)}
                 />
-                <button type="submit">Valider</button>
-                <p>{messageStatus}</p>
+
+                <div className="buttonHolder">
+                    <button type="submit">Valider</button>
+                    <p>{messageStatus}</p>
+                </div>
             </form>
         </div>
     );

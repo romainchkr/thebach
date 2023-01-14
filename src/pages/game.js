@@ -42,17 +42,22 @@ function Game({ name, sexe, room, socketId, socket }) {
         });
     }, []);
 
+    const startGame = () => {
+        socket.emit('startGame', {room});
+    }
+
     if(!game) {
         if(userCount >= 0 ) {
             return (
                 <div>
-                    Waiting for users : {userCount} / {maxUser}
+                    <p>En attente de personnes : {userCount} / {maxUser}</p>
+                    {userCount >= 5 ? <button type='submit' onClick={startGame}> Lancer le jeu quand meme </button> : ""}
                 </div>
             );
         } else {
             return (
                 <div>
-                    You need to join a room
+                    Vous devez rejoindre un groupe
                 </div>
             );
         }
@@ -93,25 +98,25 @@ function Game({ name, sexe, room, socketId, socket }) {
                 <Eliminate data={game.game} socket={socket} nbToEliminate={game.game.nbToEliminate}/>
             </div>
         );
-    } else if(game.game.type === "first_game") {
+    } else if(game.game.type === "waiting") {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <p>Waiting for contenders to play their first game</p>
+                <p>{game.game.message}</p>
             </div>
         );
     } else if(game.game.type === "two-chats") {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <TwoChats data={game.game.data}/>
+                <TwoChats data={game.game.data} socket={socket}/>
             </div>
         );
     } else if(game.game.type === "winner-chat") {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <WinnerChat data={game.game.data}/>
+                <WinnerChat data={game.game.data} socket={socket}/>
             </div>
         );
     } else if(game.game.type === "loser") {

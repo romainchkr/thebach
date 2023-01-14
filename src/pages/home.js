@@ -45,9 +45,9 @@ const Home = ({ name, setName, sexe, setSexe, room, setRoom, socketId, socket })
     return (
         <div className="home">
             <form onSubmit={handleSubmit}>
-                <h1>Join a game</h1>
+                <h1>Rejoindre un groupe</h1>
 
-                <label htmlFor="name">Name :</label>
+                <label htmlFor="name">Nom :</label>
                 <input
                     type="text"
                     id="name"
@@ -61,7 +61,7 @@ const Home = ({ name, setName, sexe, setSexe, room, setRoom, socketId, socket })
                     accept="image/*"
                     onChange={(e) => setImage(e.target.files[0])}
                 />
-                <label htmlFor="room">Game room :</label>
+                <label htmlFor="room">Groupe :</label>
                 <input
                     type="text"
                     id="room"
@@ -69,31 +69,35 @@ const Home = ({ name, setName, sexe, setSexe, room, setRoom, socketId, socket })
                     onChange={(e) => setRoom(e.target.value)}
                 />
 
-                <div className="radio">
-                    <label>
+                <div className="sexe">
+                    <div className="radio">
+                        <label htmlFor="male">Homme</label>
                         <input
+                            id="male"
                             type="radio"
                             value="Male"
                             checked={sexe === "Male"}
                             onChange={(e) => setSexe("Male")}
                         />
-                        Male
-                    </label>
-                </div>
-                <div className="radio">
-                    <label>
+                    </div>
+                    <div className="radio">
+                        <label htmlFor="female">Femme</label>
                         <input
+                            id="female"
                             type="radio"
                             value="Female"
                             checked={sexe === "Female"}
                             onChange={(e) => setSexe("Female")}
                         />
-                        Female
-                    </label>
+                    </div>
                 </div>
+
                 <p>{messageStatus}</p>
 
-                <button type="submit">Join game</button>
+                <div className="buttonHolder">
+                    <button type="submit">Jouer</button>
+                </div>
+
             </form>
         </div>
     );

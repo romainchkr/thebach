@@ -25,31 +25,35 @@ const Eliminate = ({data, socket, nbToEliminate}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <p>Eliminer {nbToEliminate} réponse</p>
+        <div className="Eliminate">
+            <form onSubmit={handleSubmit}>
+                <p className="title">Eliminer {nbToEliminate} réponse</p>
 
-            <p>{data.question}</p>
+                <p className="title">{data.question}</p>
 
-            <div className="wrapCards">
-                {data.responses.map((object, i) => (
-                <div key={i} className={`answer ${answer.includes(object.id) ? "answer-active" : ""}`} onClick={(e)=> {
-                    if(nbToEliminate === '1') {
-                        setAnswer([object.id]);
-                    } else {
-                        if(answer.length === nbToEliminate)
-                            setAnswer(answer.slice(1, answer.length));
-                        setAnswer([...answer, object.id]);
-                    }
-                }}>
-                    <p>{!object.answer ? "Pas de réponse" : object.answer}</p>
+                <div className="wrapCards">
+                    {data.responses.map((object, i) => (
+                        <div key={i} className={`answer ${answer.includes(object.id) ? "answer-active" : ""}`} onClick={(e)=> {
+                            if(nbToEliminate === '1') {
+                                setAnswer([object.id]);
+                            } else {
+                                if(answer.length === nbToEliminate)
+                                    setAnswer(answer.slice(1, answer.length));
+                                setAnswer([...answer, object.id]);
+                            }
+                        }}>
+                            <p>{!object.answer ? "Pas de réponse" : object.answer}</p>
+                        </div>
+                    ))}
                 </div>
-            ))}
-            </div>
 
 
-            <button type="submit">Valider</button>
-            <p>{messageStatus}</p>
-        </form>
+                <div className="buttonHolder">
+                    <button type="submit">Valider</button>
+                    <p>{messageStatus}</p>
+                </div>
+            </form>
+        </div>
     );
 };
 
