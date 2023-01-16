@@ -30,27 +30,39 @@ const FourCards = ({question, choices, socket, gameId}) => {
             <form onSubmit={handleSubmit}>
                 <p className="title">{question}</p>
                 <div className="line" >
-                    <div className={`card ${answer === choices[0].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[0].img})` }}
-                         onClick={(e)=>setAnswer(choices[0].text)}>
+                    <div className="bigcard">
+                        <div className={`card ${answer === choices[0].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${process.env.REACT_APP_API_URL}/${choices[0].img})` }}
+                             onClick={(e)=>setAnswer(choices[0].text)}>
+                        </div>
                         <p>{choices[0].text}</p>
                     </div>
 
-                    <div className={`card ${answer === choices[1].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[1].img})` }}
-                         onClick={(e)=>setAnswer(choices[1].text)}>
+
+                    <div className="bigcard">
+                        <div className={`card ${answer === choices[1].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${process.env.REACT_APP_API_URL}/${choices[1].img})` }}
+                             onClick={(e)=>setAnswer(choices[1].text)}>
+                        </div>
                         <p>{choices[1].text}</p>
                     </div>
+
                 </div>
 
                 <div className="line">
-                    <div className={`card ${answer === choices[2].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[2].img})` }}
-                         onClick={(e)=>setAnswer(choices[2].text)}>
+                    <div className="bigcard">
+                        <div className={`card ${answer === choices[2].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${process.env.REACT_APP_API_URL}/${choices[2].img})` }}
+                             onClick={(e)=>setAnswer(choices[2].text)}>
+                        </div>
                         <p>{choices[2].text}</p>
                     </div>
 
-                    <div className={`card ${answer === choices[3].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${choices[3].img})` }}
-                         onClick={(e)=>setAnswer(choices[3].text)}>
+
+                    <div className="bigcard">
+                        <div className={`card ${answer === choices[3].text ? "cardActive" : ""}`} style={{ backgroundImage: `url(${process.env.REACT_APP_API_URL}/${choices[3].img})` }}
+                             onClick={(e)=>setAnswer(choices[3].text)}>
+                        </div>
                         <p>{choices[3].text}</p>
                     </div>
+
                 </div>
 
                 <div className="buttonHolder">

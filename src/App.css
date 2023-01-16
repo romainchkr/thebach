@@ -204,36 +204,49 @@ button[type="submit"]:active {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-bottom: 1rem;
 }
 
 .FourCards .card {
-    width: 40%;
-    max-width: 250px;
     height: 200px;
     background-size: cover;
     background-position: center;
     border-radius: 5px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
     padding: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 10px;
-}
-
-.FourCards .card p {
-    font-size: 1.5em;
-    margin-bottom: 0;
-    font-weight: bold;
-    color: white;
 }
 
 .FourCards .cardActive {
     box-shadow: 4px 4px 30px green;
     color: white !important;
     opacity: 0.8;
+}
+
+.bigcard {
+    text-align: center;
+    max-width: 250px;
+    justify-content: center;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.bigcard p {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 500px) {
+    .bigcard {
+        font-size: 1em;
+    }
+
+    .FourCards .card {
+        height: 125px;
+    }
 }
 
 /*Eliminate*/
