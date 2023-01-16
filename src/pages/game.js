@@ -49,14 +49,14 @@ function Game({ name, sexe, room, socketId, socket }) {
     if(!game) {
         if(userCount >= 0 ) {
             return (
-                <div>
-                    <p>En attente de personnes : {userCount} / {maxUser}</p>
-                    {userCount >= 5 ? <button type='submit' onClick={startGame}> Lancer le jeu quand meme </button> : ""}
+                <div className="buttonHolder">
+                    <p style={{color:"white", textAlign:"center"}}>En attente de personnes : {userCount} / {maxUser}</p>
+                    {userCount >= 5 ? <button type='submit' onClick={startGame} style={{cursor:"pointer"}}> Lancer le jeu sans attendre </button> : ""}
                 </div>
             );
         } else {
             return (
-                <div>
+                <div style={{color:"white", textAlign:"center"}}>
                     Vous devez rejoindre un groupe
                 </div>
             );
@@ -102,7 +102,7 @@ function Game({ name, sexe, room, socketId, socket }) {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <p>{game.game.message}</p>
+                <p style={{color:"white", textAlign:"center"}}>{game.game.message}</p>
             </div>
         );
     } else if(game.game.type === "two-chats") {
@@ -121,9 +121,9 @@ function Game({ name, sexe, room, socketId, socket }) {
         );
     } else if(game.game.type === "loser") {
         return (
-            <div>
-                <p>{game.game.message}</p>
-                <button onClick={()=> navigate('/', { replace: true })}>Go back to lobby</button>
+            <div className="buttonHolder">
+                <p style={{color:"white", textAlign:"center"}}>{game.game.message}</p>
+                <button type='submit' onClick={()=> navigate('/', { replace: true })} style={{cursor:"pointer"}}>Go back to lobby</button>
                 {/*<Loser />*/}
             </div>
         );

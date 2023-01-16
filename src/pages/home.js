@@ -47,27 +47,33 @@ const Home = ({ name, setName, sexe, setSexe, room, setRoom, socketId, socket })
             <form onSubmit={handleSubmit}>
                 <h1>Rejoindre un groupe</h1>
 
-                <label htmlFor="name">Nom :</label>
                 <input
+                    placeholder="Nom"
                     type="text"
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <label htmlFor="image">Image :</label>
-                <input
-                    type="file"
-                    id="image"
-                    accept="image/*"
-                    onChange={(e) => setImage(e.target.files[0])}
-                />
-                <label htmlFor="room">Groupe :</label>
-                <input
-                    type="text"
-                    id="room"
-                    value={room}
-                    onChange={(e) => setRoom(e.target.value)}
-                />
+
+                <div className="pics">
+                    <label htmlFor="image">Photo de profil</label>
+                    <input
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        onChange={(e) => setImage(e.target.files[0])}
+                    />
+                </div>
+
+                <div>
+                    <input
+                        placeholder="Groupe"
+                        type="text"
+                        id="room"
+                        value={room}
+                        onChange={(e) => setRoom(e.target.value)}
+                    />
+                </div>
 
                 <div className="sexe">
                     <div className="radio">

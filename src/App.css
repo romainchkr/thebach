@@ -3,6 +3,11 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+    background-color: #F8F9FA;
+    background-image: linear-gradient(to right, #ec77ab 0%, #7873f5 100%);
+}
+
 .home {
     display: flex;
     flex-direction: column;
@@ -13,25 +18,43 @@
 .home form {
     width: 90%;
     max-width: 500px;
+    border-radius: 25px;
+    color: white;
 }
 
 .home h1 {
-    color: #EC77AB;
+    text-align: center;
+    padding: 20px;
 }
 
 .home label {
-    color: #CF76BE;
+    padding: 2px;
 }
 
-.home input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    border-radius: 5px;
+.home input[type="text"] {
     font-size: 1rem;
+    color: black;
+    border: solid 1px black;
+    width: 80%;
+    padding: 7px;
+    border-radius: 5px;
+    display: block;
+    margin: 20px auto;
+}
+
+.home .pics {
+    padding: 7px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.home input:focus {
+    outline: none;
+    border: solid 1px #7873F5;
 }
 
 .home .sexe {
+    padding: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -40,10 +63,6 @@
 .home .radio {
     display: flex;
     flex-direction: row;
-}
-
-.home .radio label {
-    color: #7873F5;
 }
 
 .home p {
@@ -61,7 +80,7 @@ button[type="submit"] {
     font-size: 1rem;
     border: none;
     border-radius: 5px;
-    margin-top: 1rem;
+    margin: 0 0 30px 0;
 }
 
 button[type="submit"]:hover {
@@ -73,8 +92,8 @@ button[type="submit"]:active {
 }
 
 .title {
-    color: #EC77AB;
-    font-size: 1.3em;
+    color: white;
+    font-size: 1.6em;
     text-align: center;
 }
 
@@ -85,6 +104,7 @@ button[type="submit"]:active {
     flex-direction: column;
     align-items: center;
     padding: 2rem 0;
+    color: white;
 }
 
 .sentence form {
@@ -125,6 +145,7 @@ button[type="submit"]:active {
     flex-direction: column;
     align-items: center;
     padding: 2rem 0;
+    color: white;
 }
 
 .twoChoices .choices {
@@ -142,10 +163,19 @@ button[type="submit"]:active {
     text-align: center;
     width: 40%;
     border: solid 1px #CF76BE;
+    padding: 10px;
+    background-color: white;
+    margin: 10px;
 }
 
 .twoChoices .twoChoicesActive {
-    box-shadow: 0 0 20px #7873F5;
+    box-shadow: 1px 1px 10px black;
+    background-color: #B275D1 !important;
+    color: white !important;
+}
+
+.twoChoices button[type="submit"] {
+    margin: 30px;
 }
 
 .twoChoices form {
@@ -167,6 +197,7 @@ button[type="submit"]:active {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: white;
 }
 
 .FourCards .line {
@@ -189,6 +220,7 @@ button[type="submit"]:active {
     padding: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin: 10px;
 }
 
 .FourCards .card p {
@@ -199,7 +231,9 @@ button[type="submit"]:active {
 }
 
 .FourCards .cardActive {
-    box-shadow: 0 0 20px #7873F5;
+    box-shadow: 4px 4px 30px green;
+    color: white !important;
+    opacity: 0.8;
 }
 
 /*Eliminate*/
@@ -208,6 +242,7 @@ button[type="submit"]:active {
     width: 90%;
     max-width: 500px;
     margin: auto;
+    color: white;
 }
 
 .Eliminate .wrapCards {
@@ -219,7 +254,7 @@ button[type="submit"]:active {
 .Eliminate .answer {
     width: 200px;
     height: 150px;
-    background-color: #CF76BE;
+    background-color: white;
     margin: 10px;
     padding: 10px;
     display: flex;
@@ -227,17 +262,24 @@ button[type="submit"]:active {
     justify-content: center;
     border-radius: 5px;
     cursor: pointer;
+    color: #7873f5;
 }
 
 .Eliminate .answer-active {
-    background-color: #B275D1;
-    box-shadow: 0 0 20px #7873F5;
+    box-shadow: 1px 1px 10px black;
+    background-color: #B275D1 !important;
+    color: white !important;
+}
+
+.Eliminate button[type="submit"] {
+    margin: 30px;
 }
 
 /*Eliminate Profils*/
 
 .EliminateProfils {
     width: 100%;
+    color: white;
 }
 
 .EliminateProfils .wrapCards {
@@ -248,29 +290,30 @@ button[type="submit"]:active {
 
 .EliminateProfils .face-card
 {
-  width: 150px;
-  height: 150px;
-  margin: 10px 10px;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  overflow: hidden;
-  text-align: center;
-  position: relative;
-  cursor: pointer;
+    width: 150px;
+    height: 150px;
+    margin: 10px 10px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    background-color: white;
 }
 
 .EliminateProfils .face-card p {
     font-size: 1rem;
-    color: white;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 0.5rem;
     margin: 0;
+    color: white;
 }
 
 .EliminateProfils .face-card-active {
