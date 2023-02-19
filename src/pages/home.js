@@ -1,111 +1,43 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {Button, Grid, ThemeProvider} from "@mui/material";
+import {theme} from "../App";
 
-const Home = ({ name, setName, sexe, setSexe, room, setRoom, socketId, socket }) => {
+const Home = ({ socketId, socket, name, setName }) => {
     const navigate = useNavigate();
-    const [image, setImage] = useState('');
-    const [messageStatus, setMessageStatus] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (room !== '' && name !== '') {
-
-            // with acknowledgement
-            socket.emit("join_game", { name, sexe, image, socketId, room }, (response) => {
-                console.log(response)
-                if(response.status) {
-                    setMessageStatus('')
-                    if(image) {
-
-                        const formData = new FormData();
-                        formData.append('file', image)
-                        formData.append('socketId', socket.id)
-                        formData.append('room', room)
-                        console.log(socket.id)
-
-                        fetch(`${process.env.REACT_APP_API_URL}/upload-image`, {
-                            method: 'POST',
-                            body: formData
-                        })
-                            .then(res => {
-                                console.log("wsh")
-                                console.log(res)
-                            });
-                    }
-
-                    navigate('/game', { replace: true });
-                } else {
-                    setMessageStatus("Game room is full")
-                }
-            });
+        if (name !== '') {
+            navigate('/game', { replace: true });
         }
     }
 
     return (
-        <div className="home">
-            <form onSubmit={handleSubmit}>
-                <h1>Rejoindre un groupe</h1>
+        <ThemeProvider theme={theme}>
+                <form onSubmit={handleSubmit} className="home" style={{margin: "auto", maxWidth: "500px", color: "white", textAlign:"center"}}>
+                    <Grid container flexDirection='column' rowSpacing={6} justifyContent="center" alignItems="center" height="100vh" paddingTop="80px">
+                        <Grid item>
+                            <h1 style={{fontSize: "4em"}}>The One</h1>
+                        </Grid>
 
-                <input
-                    placeholder="Nom"
-                    type="text"
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
+                        <Grid item>
+                            <input
+                                placeholder="Nom"
+                                type="text"
+                                id="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </Grid>
 
-                <div className="pics">
-                    <label htmlFor="image">Photo de profil</label>
-                    <input
-                        type="file"
-                        id="image"
-                        accept="image/*"
-                        onChange={(e) => setImage(e.target.files[0])}
-                    />
-                </div>
-
-                <div>
-                    <input
-                        placeholder="Groupe"
-                        type="text"
-                        id="room"
-                        value={room}
-                        onChange={(e) => setRoom(e.target.value)}
-                    />
-                </div>
-
-                <div className="sexe">
-                    <div className="radio">
-                        <label htmlFor="male">Homme</label>
-                        <input
-                            id="male"
-                            type="radio"
-                            value="Male"
-                            checked={sexe === "Male"}
-                            onChange={(e) => setSexe("Male")}
-                        />
-                    </div>
-                    <div className="radio">
-                        <label htmlFor="female">Femme</label>
-                        <input
-                            id="female"
-                            type="radio"
-                            value="Female"
-                            checked={sexe === "Female"}
-                            onChange={(e) => setSexe("Female")}
-                        />
-                    </div>
-                </div>
-
-                <p>{messageStatus}</p>
-
-                <div className="buttonHolder">
-                    <button type="submit">Jouer</button>
-                </div>
-
-            </form>
-        </div>
+                        <Grid item marginTop="auto">
+                            <button type="submit" disabled={!name}>Jouer</button>
+                        </Grid>
+                    </Grid>
+                </form>
+        </ThemeProvider>
     );
 };
 

@@ -1,18 +1,21 @@
 import React, {useEffect, useState} from "react";
+import {Grid} from "@mui/material";
+import StyledAvatar from "../customAvatar";
 
 // Composant
-const Eliminate = ({data, socket, nbToEliminate}) => {
-    const [answer, setAnswer] = useState([]);
+const Eliminate = ({data, socket, canEliminate}) => {
+    const [answer, setAnswer] = useState('');
     const [messageStatus, setMessageStatus] = useState("");
 
     useEffect( () => {
         console.log(data)
+        console.log(canEliminate)
     })
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // with acknowledgement
-        socket.emit("game_response", { 'response' : answer }, (response) => {
+        socket.emit("game_response", { 'socketIdToDelete' : answer }, (response) => {
             console.log(response)
             if(response.status) {
                 setMessageStatus('Réponse enregistrée');
@@ -24,45 +27,43 @@ const Eliminate = ({data, socket, nbToEliminate}) => {
     }
 
     return (
-        <div className="Eliminate">
-            <form onSubmit={handleSubmit}>
-                <p className="title">Eliminer {nbToEliminate} réponse(s)</p>
+        <form onSubmit={handleSubmit} className="eliminate">
+            <Grid container flexDirection='column' rowSpacing={3} justifyContent="flex-around" alignItems="center" maxWidth="500px" margin="auto">
+                <Grid item color="white" textAlign="center">
+                    <h3>{data.question}</h3>
+                    <p>Touche pour éliminer</p>
+                </Grid>
 
-                <p className="title">{data.question}</p>
+                {data.responses.map((object, i) => (
+                    <Grid padding="2%" item container key={i} className={`answer ${answer === object.id ? "answer-active" : ""}`}
+                          onClick={(e)=> {
+                              setAnswer(object.id);
+                              console.log(answer);
+                          }}
+                    >
+                        <Grid item xs={4} container flexDirection="column" alignItems="center">
+                            <div>
+                                <StyledAvatar src={`${process.env.REACT_APP_API_URL}/${object.url}`} sx={{ width: 75, height: 75 }}/>
+                            </div>
+                            <div style={{textAlign:'center'}}>{object.name}</div>
+                        </Grid>
 
-                <div className="wrapCards">
-                    {data.responses.map((object, i) => (
-                        <div key={i} className={`answer ${answer.includes(object.id) ? "answer-active" : ""}`} onClick={(e)=> {
-                            console.log(answer)
-                            if(answer.includes(object.id)) {
-                                setAnswer(answer.splice(answer.indexOf(object.id), 1));
-                                return;
-                            }
+                        <Grid item xs={8}>
+                            <p className="response">{!object.answer ? "Pas de réponse" : object.answer}</p>
+                        </Grid>
 
-                            if(nbToEliminate === '1') {
-                                setAnswer([object.id]);
-                            } else {
-                                if(answer.length >= nbToEliminate) {
-                                    setAnswer(answer.shift());
-                                    console.log(answer)
-                                }
-                                setAnswer([...answer, object.id]);
-                            }
-
-                            console.log(answer)
-                        }}>
-                            <p>{!object.answer ? "Pas de réponse" : object.answer}</p>
-                        </div>
-                    ))}
-                </div>
+                    </Grid>
+                ))}
 
 
-                <div className="buttonHolder">
-                    <button type="submit">Valider</button>
+
+                <Grid item marginTop="auto">
+                    <button type="submit" disabled={!answer || !canEliminate}>Eliminer</button>
                     <p>{messageStatus}</p>
-                </div>
-            </form>
-        </div>
+                </Grid>
+
+            </Grid>
+        </form>
     );
 };
 

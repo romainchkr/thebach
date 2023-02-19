@@ -9,31 +9,32 @@ import TwoChats from "../components/games/two-chats";
 import WinnerChat from "../components/games/winner-chat";
 import Loser from "../components/games/loser";
 import {useNavigate} from "react-router-dom";
+import JoinRoom from "../components/games/join-room";
+import Visualise from "../components/games/visualise";
+import AMactch from "../components/games/aMatch";
 
-function Game({ name, sexe, room, socketId, socket }) {
+function Game({ socketId, socket, name }) {
     const navigate = useNavigate();
+    const [room, setRoom] = useState('');
     const [game, setGame] = useState(null);
-    const [userCount, setUserCount] = useState(0);
-    const [maxUser, setMaxUser] = useState(0);
+    const [messageStatus, setMessageStatus] = useState('');
 
     useEffect(() => {
-
-        fetch(`${process.env.REACT_APP_API_URL}/room-count`, {
-            method: 'POST',
-            body: JSON.stringify({ room }),
-            headers: { 'Content-Type': 'application/json' },
-            })
-            .then(res => res.json())
-            .then(data => {
-                setUserCount(data.count);
-                setMaxUser(data.max);
+        if (name !== '') {
+            // with acknowledgement
+            socket.emit("search_for_session", { name, socketId }, (response) => {
+                console.log(response)
+                if(response.status) {
+                    setMessageStatus('')
+                } else {
+                    setMessageStatus("Une erreur est survenue")
+                }
             });
+        }
 
-        socket.on('update_count', data => {
-            console.log("wsh");
-            console.log(data)
-            setUserCount(data.count)
-            setMaxUser(data.max)
+        socket.on('on_session_join', data => {
+            console.log(data);
+            setGame(data);
         });
 
         socket.on('game', data => {
@@ -42,46 +43,46 @@ function Game({ name, sexe, room, socketId, socket }) {
         });
     }, []);
 
-    const startGame = () => {
-        socket.emit('startGame', {room});
+    const handleReplay = () => {
+        socket.emit("search_for_session", { name, socketId }, (response) => {
+            console.log(response)
+            setGame(null)
+        });
     }
 
     if(!game) {
-        if(userCount >= 0 ) {
-            return (
-                <div className="buttonHolder">
-                    <p style={{color:"white", textAlign:"center"}}>En attente de personnes : {userCount} / {maxUser}</p>
-                    {userCount >= 5 ? <button type='submit' onClick={startGame} style={{cursor:"pointer"}}> Lancer le jeu sans attendre </button> : ""}
-                </div>
-            );
-        } else {
-            return (
-                <div style={{color:"white", textAlign:"center"}}>
-                    Vous devez rejoindre un groupe
-                </div>
-            );
-        }
-
+        return (
+            <h3 style={{color: "white", textAlign: "center", top: "50%", left: "50%", display: "flex", justifyContent:"center", alignItems:"center", minHeight:"100vh"}}>
+                Recherche de matchmaking
+            </h3>
+        );
     }
-    if(game.game.type === "sentence") {
+
+    if(game.type === "on_session_join") {
+        return (
+            <div style={{color:"white", textAlign:"center"}}>
+                <JoinRoom users={game.users} timeout={game.timeout}/>
+            </div>
+        );
+    } else if(game.game.type === "sentence") {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <Sentence question={game.game.question} socket={socket} gameId={game.game.id}/>
+                <Sentence question={game.game.question} socket={socket} gameId={game.game.id} round={game.game.round}/>
             </div>
         );
     } else if (game.game.type === "two-choice"){
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <TwoChoices question={game.game.question} choice1={game.game.choices[0].text} choice2={game.game.choices[1].text} socket={socket} gameId={game.game.id}/>
+                <TwoChoices question={game.game.question} choice1={game.game.choices[0].text} choice2={game.game.choices[1].text} socket={socket} gameId={game.game.id} round={game.game.round}/>
             </div>
         );
     } else if (game.game.type === "four-choice"){
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <FourCards question={game.game.question} choices={game.game.choices} socket={socket} gameId={game.game.id}/>
+                <FourCards question={game.game.question} choices={game.game.choices} socket={socket} gameId={game.game.id} round={game.game.round}/>
             </div>
         );
     } else if (game.game.type === "eliminate-profils"){
@@ -95,14 +96,15 @@ function Game({ name, sexe, room, socketId, socket }) {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <Eliminate data={game.game} socket={socket} nbToEliminate={game.game.nbToEliminate}/>
+                <Eliminate data={game.game} socket={socket} canEliminate={game.canEliminate}/>
             </div>
         );
     } else if(game.game.type === "waiting") {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <p style={{color:"white", textAlign:"center"}}>{game.game.message}</p>
+
+                <h3 style={{color:"white", textAlign:"center", marginTop:'25px'}}>{game.game.message}</h3>
             </div>
         );
     } else if(game.game.type === "two-chats") {
@@ -122,11 +124,35 @@ function Game({ name, sexe, room, socketId, socket }) {
     } else if(game.game.type === "loser") {
         return (
             <div className="buttonHolder">
-                <p style={{color:"white", textAlign:"center"}}>{game.game.message}</p>
-                <button type='submit' onClick={()=> navigate('/', { replace: true })} style={{cursor:"pointer"}}>Go back to lobby</button>
+                <p style={{color: "white", textAlign: "center"}}>{game.game.message}</p>
+                <button type='submit' onClick={() => navigate('/', {replace: true})} style={{cursor: "pointer"}}>Go back
+                    to lobby
+                </button>
                 {/*<Loser />*/}
             </div>
         );
+    } else if(game.game.type === "visualisation" || game.game.type === "elimination-animation") {
+        if (game.game.eliminated !== undefined && game.game.eliminated.id === socket.id) {
+            return (
+                <div>
+                    <Loser socket={socket} name={name} replay={handleReplay}/>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <Visualise bachelor={game.game.bachelor} contenders={game.game.contenders}
+                               eliminated={game.game.eliminated} />
+                </div>
+            );
+        }
+    } else if(game.game.type === "match") {
+        return (
+            <div>
+                <AMactch replay={handleReplay}/>
+            </div>
+        );
+
     }
 }
 

@@ -1,18 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
+import {Grid} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 // Composant
-const Loser = ({data, socket}) => {
-    const [messageStatus, setMessageStatus] = useState("");
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    }
+const Loser = ({name, socket, replay}) => {
+    const navigate = useNavigate();
 
     return (
-        <form onSubmit={handleSubmit}>
+        <Grid container flexDirection="column" rowSpacing={10}>
+            <Grid item textAlign="center"  color="white" marginTop="25px">
+                <h3>Vous avez été éliminé !</h3>
+            </Grid>
 
-            <p>{messageStatus}</p>
-        </form>
+            <Grid item textAlign="center">
+                <button type="submit" onClick={replay}>Rejouer</button>
+            </Grid>
+        </Grid>
     );
 };
 

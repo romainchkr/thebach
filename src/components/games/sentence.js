@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
+import {Grid} from "@mui/material";
+import Question from "../question";
 
 // Composant
-const Sentence = ({question, socket, gameId}) => {
+const Sentence = ({question, socket, gameId, round}) => {
     const [answer, setAnswer] = useState("");
     const [messageStatus, setMessageStatus] = useState("");
 
@@ -26,22 +28,25 @@ const Sentence = ({question, socket, gameId}) => {
     }
 
     return (
-        <div className="sentence">
-            <form onSubmit={handleSubmit}>
-                <p className="title">{question}</p>
-                <input
-                    type="text"
-                    id="answer"
-                    value={answer}
-                    onChange={(e) => setAnswer(e.target.value)}
-                />
+    <form onSubmit={handleSubmit} className="sentence">
+        <Grid container flexDirection='column' rowSpacing={1} justifyContent="flex-around" alignItems="center" paddingTop="50px">
+            <Grid item xs={12}>
+                <Question round={round} question={question} description="" />
+            </Grid>
+            <Grid item>
+                <textarea id="story" name="answer" rows={4} cols={40}
+                          value={answer}
+                          onChange={(e) => setAnswer(e.target.value)}>
+                </textarea>
+            </Grid>
 
-                <div className="buttonHolder">
-                    <button type="submit">Valider</button>
-                    <p>{messageStatus}</p>
-                </div>
-            </form>
-        </div>
+            <Grid item marginTop="auto">
+                <button type="submit" disabled={!answer}>Valider</button>
+                <p>{messageStatus}</p>
+            </Grid>
+
+        </Grid>
+    </form>
     );
 };
 
