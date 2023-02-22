@@ -3,7 +3,7 @@ import {Grid} from "@mui/material";
 import Question from "../question";
 
 // Composant
-const TwoChoices = ({question, choice1, choice2, socket, gameId, round}) => {
+const TwoChoices = ({url, question, choice1, choice2, socket, gameId, round}) => {
     const [answer, setAnswer] = useState("");
     const [messageStatus, setMessageStatus] = useState("");
 
@@ -31,7 +31,7 @@ const TwoChoices = ({question, choice1, choice2, socket, gameId, round}) => {
         <form onSubmit={handleSubmit} className="twoChoices">
             <Grid container flexDirection='column' rowSpacing={1} justifyContent="flex-around" alignItems="center" paddingTop="50px" maxWidth="500px" height="100vh" margin="auto">
                 <Grid item>
-                    <Question round={round} question={question} description="" />
+                    <Question url={url} round={round} question={question} description="" />
                 </Grid>
                 <Grid item width="80%" textAlign="center" className="choice" marginTop="50px">
                     <p onClick={() => setAnswer(choice1)}

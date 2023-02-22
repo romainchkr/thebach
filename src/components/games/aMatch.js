@@ -4,8 +4,7 @@ import {Grid} from "@mui/material";
 import {ReactComponent as StartSvg} from "../../assets/star.svg";
 
 // Composant
-const AMactch = ({data, replay}) => {
-    let url = "";
+const AMactch = ({bachelor, contender, replay}) => {
     return (
         <Grid container flexDirection="column" rowSpacing={7}>
             <Grid item textAlign="center"  color="white" marginTop="25px">
@@ -13,12 +12,12 @@ const AMactch = ({data, replay}) => {
             </Grid>
 
             <Grid item textAlign="center"  color="white">
-                <h3>Vous avez matché avec XXX</h3>
+                <h3>Vous avez matché avec {}</h3>
             </Grid>
 
             <Grid item container flexDirection="row" justifyContent="center" position='relative'>
-                <StyledAvatar src={`${process.env.REACT_APP_API_URL}/${url}`} sx={{ width: 100, height: 100 }}/>
-                <StyledAvatar src={`${process.env.REACT_APP_API_URL}/${url}`} sx={{ width: 100, height: 100 }}/>
+                <StyledAvatar src={`${process.env.REACT_APP_API_URL}/${bachelor.url}`} sx={{ width: 100, height: 100 }}/>
+                <StyledAvatar src={contender ? `${process.env.REACT_APP_API_URL}/${contender.url}` : ""} sx={{ width: 100, height: 100 }}/>
                 <StartSvg style={{position: 'absolute', width: "50px", top: "45%"}}/>
             </Grid>
 

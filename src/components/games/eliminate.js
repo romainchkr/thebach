@@ -11,6 +11,7 @@ const Eliminate = ({data, socket, canEliminate}) => {
         console.log(data)
         console.log(canEliminate)
     })
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -39,6 +40,7 @@ const Eliminate = ({data, socket, canEliminate}) => {
                           onClick={(e)=> {
                               setAnswer(object.id);
                               console.log(answer);
+                              console.log("----")
                           }}
                     >
                         <Grid item xs={4} container flexDirection="column" alignItems="center">
@@ -49,7 +51,7 @@ const Eliminate = ({data, socket, canEliminate}) => {
                         </Grid>
 
                         <Grid item xs={8}>
-                            <p className="response">{!object.answer ? "Pas de réponse" : object.answer}</p>
+                            <p className="response">{!object.answer ? "Pas de réponse" : object.answer.answer}</p>
                         </Grid>
 
                     </Grid>

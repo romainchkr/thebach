@@ -12,6 +12,8 @@ import {useNavigate} from "react-router-dom";
 import JoinRoom from "../components/games/join-room";
 import Visualise from "../components/games/visualise";
 import AMactch from "../components/games/aMatch";
+import StyledAvatar from "../components/customAvatar";
+import ChooseMatch from "../components/games/choose-match";
 
 function Game({ socketId, socket, name }) {
     const navigate = useNavigate();
@@ -52,9 +54,20 @@ function Game({ socketId, socket, name }) {
 
     if(!game) {
         return (
-            <h3 style={{color: "white", textAlign: "center", top: "50%", left: "50%", display: "flex", justifyContent:"center", alignItems:"center", minHeight:"100vh"}}>
-                Recherche de matchmaking
-            </h3>
+            <div>
+                <h3 style={{color: "white", textAlign: "center", display: "flex", justifyContent:"center", alignItems:"center", paddingTop: "25px"}}>
+                    Recherche de matchmaking
+                </h3>
+
+                <div className="sonar-wrapper" style={{color: "white", textAlign: "center"}}>
+
+                    <div className="sonar-emitter">
+                        <div className="sonar-wave"></div>
+                        <StyledAvatar sx={{ width: 100, height: 100 }}/>
+                        <p style={{textAlign:'center'}}>{name}</p>
+                    </div>
+                </div>
+            </div>
         );
     }
 
@@ -68,21 +81,21 @@ function Game({ socketId, socket, name }) {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <Sentence question={game.game.question} socket={socket} gameId={game.game.id} round={game.game.round}/>
+                <Sentence url={game.game.bachelor_url} question={game.game.question} socket={socket} gameId={game.game.id} round={game.round}/>
             </div>
         );
     } else if (game.game.type === "two-choice"){
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <TwoChoices question={game.game.question} choice1={game.game.choices[0].text} choice2={game.game.choices[1].text} socket={socket} gameId={game.game.id} round={game.game.round}/>
+                <TwoChoices url={game.game.bachelor_url} question={game.game.question} choice1={game.game.choices[0].text} choice2={game.game.choices[1].text} socket={socket} gameId={game.game.id} round={game.round}/>
             </div>
         );
     } else if (game.game.type === "four-choice"){
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <FourCards question={game.game.question} choices={game.game.choices} socket={socket} gameId={game.game.id} round={game.game.round}/>
+                <FourCards url={game.game.bachelor_url} question={game.game.question} choices={game.game.choices} socket={socket} gameId={game.game.id} round={game.round}/>
             </div>
         );
     } else if (game.game.type === "eliminate-profils"){
@@ -111,24 +124,20 @@ function Game({ socketId, socket, name }) {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <TwoChats data={game.game.data} socket={socket}/>
+                <TwoChats contenders={game.game.contenders} socket={socket}/>
             </div>
         );
     } else if(game.game.type === "winner-chat") {
         return (
             <div>
                 <LinearDeterminate duration={game.duration}/>
-                <WinnerChat data={game.game.data} socket={socket}/>
+                <WinnerChat data={game.game} socket={socket}/>
             </div>
         );
     } else if(game.game.type === "loser") {
         return (
-            <div className="buttonHolder">
-                <p style={{color: "white", textAlign: "center"}}>{game.game.message}</p>
-                <button type='submit' onClick={() => navigate('/', {replace: true})} style={{cursor: "pointer"}}>Go back
-                    to lobby
-                </button>
-                {/*<Loser />*/}
+            <div>
+                <Loser socket={socket} name={name} replay={handleReplay} />
             </div>
         );
     } else if(game.game.type === "visualisation" || game.game.type === "elimination-animation") {
@@ -149,10 +158,15 @@ function Game({ socketId, socket, name }) {
     } else if(game.game.type === "match") {
         return (
             <div>
-                <AMactch replay={handleReplay}/>
+                <AMactch bachelor={game.game.bachelor} contender={game.game.contender} replay={handleReplay}/>
             </div>
         );
-
+    } else if(game.game.type === "choose_match") {
+        return (
+            <div>
+                <ChooseMatch bachelor={game.game.bachelor} contenders={game.game.contenders} socket={socket}/>
+            </div>
+        );
     }
 }
 

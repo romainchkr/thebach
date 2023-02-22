@@ -36,6 +36,7 @@ const Visualise = ({bachelor, contenders, eliminated}) => {
                             </div>
                         </div>
                     ))}
+                    <div className="sonar-wave"></div>
                 </div>
             </Grid>
         </Grid>

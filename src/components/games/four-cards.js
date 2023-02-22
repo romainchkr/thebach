@@ -4,7 +4,7 @@ import StyledAvatar from "../customAvatar";
 import Question from "../question";
 
 // Composant
-const FourCards = ({question, choices, socket, gameId, round}) => {
+const FourCards = ({url, question, choices, socket, gameId, round}) => {
     const [answer, setAnswer] = useState('');
     const [messageStatus, setMessageStatus] = useState("");
 
@@ -32,7 +32,7 @@ const FourCards = ({question, choices, socket, gameId, round}) => {
         <form onSubmit={handleSubmit} className="FourCards">
             <Grid container flexDirection='column' rowSpacing={1} justifyContent="flex-around" alignItems="center" paddingTop="50px">
                 <Grid item xs={12}>
-                    <Question round={round} question={question} description="Sélectionne le choix qui te correspond le mieux" />
+                    <Question url={url} round={round} question={question} description="Sélectionne le choix qui te correspond le mieux" />
                 </Grid>
                 <Grid item>
                     <Grid container rowSpacing={1} justifyContent="center" alignItems="center">

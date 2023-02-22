@@ -11,7 +11,7 @@ const Question = ({round, question, url, description}) => {
 
             <Grid item xs={12} container flexDirection="row" justifyContent="space-between" flexWrap="nowrap">
                 <Grid item alignSelf="center">
-                    <StyledAvatar src="" sx={{ width: 75, height: 75 }}></StyledAvatar>
+                    <StyledAvatar src={`${process.env.REACT_APP_API_URL}/${url}`} sx={{ width: 75, height: 75 }}></StyledAvatar>
                 </Grid>
                 <Grid item minWidth="150px" container flexDirection="column">
                     <Grid item>

@@ -35,6 +35,7 @@ const JoinRoom = ({users, timeout}) => {
                             </div>
                         </div>
                     ))}
+                    <div className="sonar-wave"></div>
                 </div>
             </Grid>
 
